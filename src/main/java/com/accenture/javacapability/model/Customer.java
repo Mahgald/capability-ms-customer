@@ -10,6 +10,10 @@ public class Customer {
 	
 	private Long countryRef;
 	
+	public Customer() {
+		super();
+	}
+
 	public Customer(Long id, String name, String lastName, Long countryRef) {
 		super();
 		this.id = id;
