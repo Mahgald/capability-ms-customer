@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.accenture.javacapability.backbone.config.MsConfig;
 import com.accenture.javacapability.backbone.service.interfaces.ICustomerService;
 import com.accenture.javacapability.model.Customer;
 
@@ -19,6 +20,9 @@ public class CustomerController {
 
 	@Autowired
 	ICustomerService customerService;
+	
+	@Autowired
+	MsConfig msConfig;
 	
 	@LoadBalanced
 	@Bean
@@ -32,9 +36,8 @@ public class CustomerController {
 	@GetMapping("country/{id}")
 	public ResponseEntity<?> getCountryFromMsLocalization(@PathVariable("id")Long id){
 		
-		String url = "http://ms-localization/countryMS/"+id;
-		
-		String countryName = restTemplate.getForObject(url, String.class);
+		String url = "http://%s/countryMS/"+id;
+		String countryName = restTemplate.getForObject(String.format(url, msConfig.getLocalization()), String.class);
 			
 		return new ResponseEntity<>(countryName,HttpStatus.OK);
 		

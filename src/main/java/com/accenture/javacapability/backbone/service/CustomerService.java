@@ -19,8 +19,8 @@ public class CustomerService implements ICustomerService {
 	public List<Customer> generateMockData() {
 		
 		Customer c1 = new Customer(1L, "Juan", "Perez", 1L);
-		Customer c2 = new Customer(1L, "Arturo", "Gomez", 2L);
-		Customer c3 = new Customer(1L, "Edson Arantes", "do Nascimento", 3L);
+		Customer c2 = new Customer(2L, "Arturo", "Gomez", 2L);
+		Customer c3 = new Customer(3L, "Edson Arantes", "do Nascimento", 3L);
 		
 		lstCustomer.add(c1);
 		lstCustomer.add(c2);
