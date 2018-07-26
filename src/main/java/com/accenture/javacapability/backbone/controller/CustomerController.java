@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import com.accenture.javacapability.backbone.config.MsConfig;
 import com.accenture.javacapability.backbone.service.interfaces.ICustomerService;
 import com.accenture.javacapability.model.Customer;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController("/")
 public class CustomerController {
@@ -33,6 +34,7 @@ public class CustomerController {
 	@Autowired
 	RestTemplate restTemplate;
 	
+	@HystrixCommand(fallbackMethod="getCountryFromMsLocalizationBackUp")
 	@GetMapping("country/{id}")
 	public ResponseEntity<?> getCountryFromMsLocalization(@PathVariable("id")Long id){
 		
@@ -41,6 +43,10 @@ public class CustomerController {
 			
 		return new ResponseEntity<>(countryName,HttpStatus.OK);
 		
+	}
+	
+	public ResponseEntity<?> getCountryFromMsLocalizationBackUp(@PathVariable("id")Long id){
+		return new ResponseEntity<>("Error al comunicarme con el microservicio",HttpStatus.CONFLICT);
 	}
 	
 	
